@@ -1,62 +1,36 @@
-# Rotating Cube: FixedFunction and a game loop
+# 🎯 3D Parabolic Cannon Simulator
 
-A yellow cube rotates on the Y axis. One directional light shines on it. The example uses the FixedFunction (FF) module, so no shader code appears in the example. The code shows the game loop that drives the animation.
+This project is a custom 3D graphics engine developed for a Computer Graphics course. It features an interactive 3D rendering environment built entirely through code, focusing on simulating parabolic projectile physics, spatial collision detection, and hierarchical matrix transformations without relying on pre-built commercial game engines.
 
-## Requirements
+## 🚀 Core Features
 
-- Node.js 18 or later (tested with Node 24)
-- npm
-- A browser with WebGL2 support
+* **Physics & Kinematics:** Real-time parabolic trajectory simulation. It implements gravity and *delta time* calculations to ensure the projectile's flight remains consistent and completely independent of the frame rate (FPS).
+* **Transformation Hierarchy:** Articulated turret modeling managed through mathematical matrices. The cannon barrel includes precise rotation constraints (strict clamping between 5° and 90°).
+* **3D Collision Detection:** Custom collision system based on Euclidean distance calculations across the X, Y, and Z axes to register exact impacts between the dynamic projectile and static targets in 3D space.
+* **Procedural Primitives:** Construction of 3D geometries (optimized topology spheres and rectangular prisms) by calculating vertices and polygons programmatically from scratch.
+* **Dynamic In-Game UI:** Power indicator integrated directly into the 3D world (status bars rendered on the model) that reacts to real-time keyboard events.
 
-## Run
+## 🎮 Controls
 
-1. Install the dependencies. This is the only step that needs a network connection.
+* **Left / Right Arrows:** Translate turret laterally across the field limits.
+* **Up / Down Arrows:** Adjust cannon pitch angle (clamped between 5° and 90°).
+* **1, 2, 3 / F:** Change launch power level (visually indicated by status bars).
+* **Spacebar:** Fire projectile (single-projectile lock active during flight).
+* **R:** Reset active targets, turret position, and projectile state.
 
-   ```
+## 🛠️ Tech Stack & Requirements
+
+* **Language:** TypeScript
+* **Graphics:** 3D Projection Math / WebGL2
+* **Environment:** Vite / Node.js 18+
+
+## ⚙️ How to Run
+
+1. Install dependencies:
+   ```bash
    npm install
-   ```
+   
+Start development server:
+npm run dev
 
-2. Start the development server.
-
-   ```
-   npm run dev
-   ```
-
-3. Open `http://localhost:5173` in your browser.
-
-## Use
-
-- Press `Space` to change the cube color. The color cycles yellow → cyan → magenta → yellow.
-- Press `R` to stop or restart the rotation.
-- Holding a key counts as one press. Key auto-repeat is ignored.
-
-## Game loop
-
-Each frame runs three steps in this order:
-
-1. `processInput` handles the `Space` and `R` presses recorded since the last frame.
-2. `update(dt)` changes the rotation angle.
-3. `render` draws the scene.
-
-`dt` is the time since the last frame, in seconds. The value is clamped to 0.1 s. A hidden tab does not make the cube jump when the tab becomes visible again. The rotation speed is in radians per second. The cube turns at the same speed on a 60 Hz display and on a 120 Hz display.
-
-## Other commands
-
-| Command           | Action                                          |
-| ----------------- | ----------------------------------------------- |
-| `npm run build`   | Type-check with `tsc` and build to `dist/`      |
-| `npm run preview` | Serve the built `dist/` folder locally          |
-
-## Project layout
-
-```
-index.html                 page markup
-src/main.ts                WebGL setup, the game loop, and the canvas
-src/constants.ts           geometry, colors, and clear color (#1b1e2b)
-src/vendor/ff/             FF v1.0 (read only; do not edit)
-```
-
-## Troubleshooting
-
-- **Blank page or "WebGL2 is not available."** Enable hardware acceleration in the browser, or try another browser.
-- **Port 5173 is in use.** Stop the other process, or run `npx vite --port 3000`.
+Open http://localhost:5173 in your browser.
